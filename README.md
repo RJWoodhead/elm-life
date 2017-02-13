@@ -33,8 +33,11 @@ Load http://localhost:4000/ in your browser.
 ### Credit where Credit is Due
 
 http://getbootstrap.com/ -- Documentation on Bootstrap.css
+
 http://danielstern.ca/range.css/#/ -- Tool for customizing Bootstrap sliders
+
 http://stackoverflow.com/questions/40269494/elm-adding-click-events-to-svg-elements-doesnt-work-is-this-possible -- insights on converting mouse locations from window-global to element-relative.
+
 https://sourceforge.net/p/golly/discussion/467856/thread/2ea0e461/ -- optimal soup density
 
 Thanks to @jessta and others on the Elm-slack #beginners channel for help.
