@@ -1,0 +1,6 @@
+#
+# ignore elm workfiles
+#
+elm-stuff/
+node_modules/
+dist/bundle.js

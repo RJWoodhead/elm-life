@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conway's Game of Life in Elm 0.18</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="app.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div></div>
+    <script src="bundle.js"></script>
+    <script>
+
+        // We need to tell our app if we are running on a touchpanel, so it can
+        // set the correct default input mode. We also need a nice seed for our
+        // random number generator
+
+        var flags = { hasTouch: isTouchDevice(), randomSeed: Date.now() }
+
+        // Start the Elm application.
+
+        var app = Elm.Main.fullscreen(flags);
+
+        // On startup, the app will ask about the initial location of the
+        // SVG life board. This will happen after the initial display of
+        // the UI, so the information will be available.
+
+        app.ports.initialLocation.subscribe(boardLocation);
+
+        // In addition, anytime the window is resized, the displayed position
+        // and size of the board may change, so we need to tell our app
+        // about this. We can't use an "on" event handler inside Elm because
+        // we need to access the DOM to find out where the board is.
+
+        window.onresize = boardLocation;
+
+        // Look for the object with id "board" and return its location
+        // via an Elm port. I wanted to have a more general query function
+        // for later reuse, so a parameterless wrapper is needed.
+
+        function boardLocation() { objectLocation("#board"); }
+
+        function objectLocation(obj) {
+            const e = document.querySelector(obj);
+            const rect = e.getBoundingClientRect();
+            app.ports.boardLocation.send({
+                top: Math.round(rect.top),
+                left: Math.round(rect.left),
+                width: Math.round(rect.width),
+                height: Math.round(rect.height)
+                });
+            }
+
+        // Detect if on touch device
+
+        function isTouchDevice() {
+            return 'ontouchstart' in document.documentElement;
+        }
+    </script>
+</body>
+
+</html>
