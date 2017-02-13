@@ -8,7 +8,8 @@ A live version of the app can be found here: http://www.madoverlord.com/Elm/Life
 
 ### Features List
 
-* Single-step or free-run life generations at various speeds.
+* Single-step or free-run life generations at various speeds. Board can be set
+to automatically expand or have edges that wrap.
 * Edit, shift, rotate, minimize, zoom, clear and "soup" the board.
 * Import boards in .cell and .rle formats, export in .cell.
 * Prestored patterns.
