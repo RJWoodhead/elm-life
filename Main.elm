@@ -1534,7 +1534,7 @@ controlsView model =
 runningControls : Model -> Html Msg
 runningControls model =
     div
-        [ class "col-xs-4" ]
+        [ class "col-xs-3" ]
         [ div
             [ class "row" ]
             [ div
@@ -1609,7 +1609,7 @@ runningControls model =
 
 editingControls : Model -> Html Msg
 editingControls model =
-    div [ class "col-xs-4" ]
+    div [ class "col-xs-5" ]
         [ div
             [ class "row" ]
             [ div

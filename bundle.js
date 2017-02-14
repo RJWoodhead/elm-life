@@ -17906,7 +17906,7 @@ var _user$project$Main$editingControls = function (model) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('col-xs-4'),
+			_0: _elm_lang$html$Html_Attributes$class('col-xs-5'),
 			_1: {ctor: '[]'}
 		},
 		{
@@ -18395,7 +18395,7 @@ var _user$project$Main$runningControls = function (model) {
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('col-xs-4'),
+			_0: _elm_lang$html$Html_Attributes$class('col-xs-3'),
 			_1: {ctor: '[]'}
 		},
 		{
