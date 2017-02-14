@@ -1633,28 +1633,28 @@ editingControls model =
                     , button
                         [ class "btn btn-default", onClick (Shift Clockwise), title "Rotate Clockwise" ]
                         [ span [ class "glyphicon glyphicon-repeat" ] [] ]
-                    , button
-                        [ class "btn btn-default", onClick Trim, title "Trim to fit" ]
-                        [ span [ class "glyphicon glyphicon-resize-small" ] [] ]
-                    ]
-                , div
-                    [ class "btn-group"
-                    , style [ "margin-right" => "5px" ]
-                    ]
-                    [ button
-                        [ class "btn btn-default dropdown-toggle"
-                        , attribute "data-toggle" "dropdown"
-                        , title "Misc. Options"
+                    , div
+                        [ class "btn-group"
+                        , style [ "margin-right" => "5px" ]
                         ]
-                        [ span [ class "glyphicon glyphicon-option-vertical" ] []
-                        , span [ class "caret" ] []
-                        ]
-                    , ul [ class "dropdown-menu" ]
-                        [ li []
-                            [ a [ href "#", onClick ClearBoard ] [ text "Clear Board" ]
+                        [ button
+                            [ class "btn btn-default dropdown-toggle"
+                            , attribute "data-toggle" "dropdown"
+                            , title "Misc. Options"
                             ]
-                        , li []
-                            [ a [ href "#", onClick MakeSoup ] [ text "Make Soup" ]
+                            [ span [ class "glyphicon glyphicon-option-vertical" ] []
+                            , span [ class "caret" ] []
+                            ]
+                        , ul [ class "dropdown-menu" ]
+                            [ li []
+                                [ a [ href "#", onClick Trim ] [ text "Trim to Fit" ]
+                                ]
+                            , li []
+                                [ a [ href "#", onClick ClearBoard ] [ text "Clear Board" ]
+                                ]
+                            , li []
+                                [ a [ href "#", onClick MakeSoup ] [ text "Make Soup" ]
+                                ]
                             ]
                         ]
                     ]
@@ -1706,7 +1706,7 @@ miscControls model =
             [ div
                 [ class "col-xs-12 text-center center-block" ]
                 [ Html.h4 []
-                    [ link "https://en.wikipedia.org/wiki/Conway's_Game_of_Life" "Conway's Game of Life"
+                    [ link "https://en.wikipedia.org/wiki/Conway's_Game_of_Life" "Conway's Life"
                     , text " in "
                     , link "http://elm-lang.org/" "Elm"
                     ]
@@ -1840,12 +1840,9 @@ aboutUs =
                         , li []
                             [ text "The grey slider changes the size of the board. "
                             , text "The buttons above it shift and rotate the board. "
-                            , text "You can also trim ( "
-                            , span [ class "glyphicon glyphicon-resize-small" ] []
-                            , text " ) the board to fit the current pattern. "
                             , text "Finally, the Options button ( "
                             , span [ class "glyphicon glyphicon-option-vertical" ] []
-                            , text " ) lets you clear the board and make random soup."
+                            , text " ) lets you trim the board to fit the current pattern, clear the board and make random soup."
                             ]
                         , li []
                             [ text "You can import ( "

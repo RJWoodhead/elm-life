@@ -17307,7 +17307,7 @@ var _user$project$Main$miscControls = function (model) {
 									{ctor: '[]'},
 									{
 										ctor: '::',
-										_0: A2(_user$project$Main$link, 'https://en.wikipedia.org/wiki/Conway\'s_Game_of_Life', 'Conway\'s Game of Life'),
+										_0: A2(_user$project$Main$link, 'https://en.wikipedia.org/wiki/Conway\'s_Game_of_Life', 'Conway\'s Life'),
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$html$Html$text(' in '),
@@ -17622,40 +17622,21 @@ var _user$project$Main$aboutUs = _elm_lang$core$Maybe$Just(
 																_0: _elm_lang$html$Html$text('The buttons above it shift and rotate the board. '),
 																_1: {
 																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('You can also trim ( '),
+																	_0: _elm_lang$html$Html$text('Finally, the Options button ( '),
 																	_1: {
 																		ctor: '::',
 																		_0: A2(
 																			_elm_lang$html$Html$span,
 																			{
 																				ctor: '::',
-																				_0: _elm_lang$html$Html_Attributes$class('glyphicon glyphicon-resize-small'),
+																				_0: _elm_lang$html$Html_Attributes$class('glyphicon glyphicon-option-vertical'),
 																				_1: {ctor: '[]'}
 																			},
 																			{ctor: '[]'}),
 																		_1: {
 																			ctor: '::',
-																			_0: _elm_lang$html$Html$text(' ) the board to fit the current pattern. '),
-																			_1: {
-																				ctor: '::',
-																				_0: _elm_lang$html$Html$text('Finally, the Options button ( '),
-																				_1: {
-																					ctor: '::',
-																					_0: A2(
-																						_elm_lang$html$Html$span,
-																						{
-																							ctor: '::',
-																							_0: _elm_lang$html$Html_Attributes$class('glyphicon glyphicon-option-vertical'),
-																							_1: {ctor: '[]'}
-																						},
-																						{ctor: '[]'}),
-																					_1: {
-																						ctor: '::',
-																						_0: _elm_lang$html$Html$text(' ) lets you clear the board and make random soup.'),
-																						_1: {ctor: '[]'}
-																					}
-																				}
-																			}
+																			_0: _elm_lang$html$Html$text(' ) lets you trim the board to fit the current pattern, clear the board and make random soup.'),
+																			_1: {ctor: '[]'}
 																		}
 																	}
 																}
@@ -18098,31 +18079,151 @@ var _user$project$Main$editingControls = function (model) {
 													_1: {
 														ctor: '::',
 														_0: A2(
-															_elm_lang$html$Html$button,
+															_elm_lang$html$Html$div,
 															{
 																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$class('btn btn-default'),
+																_0: _elm_lang$html$Html_Attributes$class('btn-group'),
 																_1: {
 																	ctor: '::',
-																	_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Trim),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$title('Trim to fit'),
-																		_1: {ctor: '[]'}
-																	}
+																	_0: _elm_lang$html$Html_Attributes$style(
+																		{
+																			ctor: '::',
+																			_0: A2(_user$project$Main_ops['=>'], 'margin-right', '5px'),
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
 																}
 															},
 															{
 																ctor: '::',
 																_0: A2(
-																	_elm_lang$html$Html$span,
+																	_elm_lang$html$Html$button,
 																	{
 																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$class('glyphicon glyphicon-resize-small'),
-																		_1: {ctor: '[]'}
+																		_0: _elm_lang$html$Html_Attributes$class('btn btn-default dropdown-toggle'),
+																		_1: {
+																			ctor: '::',
+																			_0: A2(_elm_lang$html$Html_Attributes$attribute, 'data-toggle', 'dropdown'),
+																			_1: {
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$title('Misc. Options'),
+																				_1: {ctor: '[]'}
+																			}
+																		}
 																	},
-																	{ctor: '[]'}),
-																_1: {ctor: '[]'}
+																	{
+																		ctor: '::',
+																		_0: A2(
+																			_elm_lang$html$Html$span,
+																			{
+																				ctor: '::',
+																				_0: _elm_lang$html$Html_Attributes$class('glyphicon glyphicon-option-vertical'),
+																				_1: {ctor: '[]'}
+																			},
+																			{ctor: '[]'}),
+																		_1: {
+																			ctor: '::',
+																			_0: A2(
+																				_elm_lang$html$Html$span,
+																				{
+																					ctor: '::',
+																					_0: _elm_lang$html$Html_Attributes$class('caret'),
+																					_1: {ctor: '[]'}
+																				},
+																				{ctor: '[]'}),
+																			_1: {ctor: '[]'}
+																		}
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: A2(
+																		_elm_lang$html$Html$ul,
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$html$Html_Attributes$class('dropdown-menu'),
+																			_1: {ctor: '[]'}
+																		},
+																		{
+																			ctor: '::',
+																			_0: A2(
+																				_elm_lang$html$Html$li,
+																				{ctor: '[]'},
+																				{
+																					ctor: '::',
+																					_0: A2(
+																						_elm_lang$html$Html$a,
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$html$Html_Attributes$href('#'),
+																							_1: {
+																								ctor: '::',
+																								_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Trim),
+																								_1: {ctor: '[]'}
+																							}
+																						},
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$html$Html$text('Trim to Fit'),
+																							_1: {ctor: '[]'}
+																						}),
+																					_1: {ctor: '[]'}
+																				}),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(
+																					_elm_lang$html$Html$li,
+																					{ctor: '[]'},
+																					{
+																						ctor: '::',
+																						_0: A2(
+																							_elm_lang$html$Html$a,
+																							{
+																								ctor: '::',
+																								_0: _elm_lang$html$Html_Attributes$href('#'),
+																								_1: {
+																									ctor: '::',
+																									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ClearBoard),
+																									_1: {ctor: '[]'}
+																								}
+																							},
+																							{
+																								ctor: '::',
+																								_0: _elm_lang$html$Html$text('Clear Board'),
+																								_1: {ctor: '[]'}
+																							}),
+																						_1: {ctor: '[]'}
+																					}),
+																				_1: {
+																					ctor: '::',
+																					_0: A2(
+																						_elm_lang$html$Html$li,
+																						{ctor: '[]'},
+																						{
+																							ctor: '::',
+																							_0: A2(
+																								_elm_lang$html$Html$a,
+																								{
+																									ctor: '::',
+																									_0: _elm_lang$html$Html_Attributes$href('#'),
+																									_1: {
+																										ctor: '::',
+																										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$MakeSoup),
+																										_1: {ctor: '[]'}
+																									}
+																								},
+																								{
+																									ctor: '::',
+																									_0: _elm_lang$html$Html$text('Make Soup'),
+																									_1: {ctor: '[]'}
+																								}),
+																							_1: {ctor: '[]'}
+																						}),
+																					_1: {ctor: '[]'}
+																				}
+																			}
+																		}),
+																	_1: {ctor: '[]'}
+																}
 															}),
 														_1: {ctor: '[]'}
 													}
@@ -18131,131 +18232,7 @@ var _user$project$Main$editingControls = function (model) {
 										}
 									}
 								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$div,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('btn-group'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$style(
-												{
-													ctor: '::',
-													_0: A2(_user$project$Main_ops['=>'], 'margin-right', '5px'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {ctor: '[]'}
-										}
-									},
-									{
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$button,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$class('btn btn-default dropdown-toggle'),
-												_1: {
-													ctor: '::',
-													_0: A2(_elm_lang$html$Html_Attributes$attribute, 'data-toggle', 'dropdown'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$title('Misc. Options'),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$span,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$class('glyphicon glyphicon-option-vertical'),
-														_1: {ctor: '[]'}
-													},
-													{ctor: '[]'}),
-												_1: {
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$span,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$class('caret'),
-															_1: {ctor: '[]'}
-														},
-														{ctor: '[]'}),
-													_1: {ctor: '[]'}
-												}
-											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$ul,
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$class('dropdown-menu'),
-													_1: {ctor: '[]'}
-												},
-												{
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$li,
-														{ctor: '[]'},
-														{
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$a,
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$href('#'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ClearBoard),
-																		_1: {ctor: '[]'}
-																	}
-																},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('Clear Board'),
-																	_1: {ctor: '[]'}
-																}),
-															_1: {ctor: '[]'}
-														}),
-													_1: {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$li,
-															{ctor: '[]'},
-															{
-																ctor: '::',
-																_0: A2(
-																	_elm_lang$html$Html$a,
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$href('#'),
-																		_1: {
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$MakeSoup),
-																			_1: {ctor: '[]'}
-																		}
-																	},
-																	{
-																		ctor: '::',
-																		_0: _elm_lang$html$Html$text('Make Soup'),
-																		_1: {ctor: '[]'}
-																	}),
-																_1: {ctor: '[]'}
-															}),
-														_1: {ctor: '[]'}
-													}
-												}),
-											_1: {ctor: '[]'}
-										}
-									}),
-								_1: {ctor: '[]'}
-							}
+							_1: {ctor: '[]'}
 						}),
 					_1: {ctor: '[]'}
 				}),
