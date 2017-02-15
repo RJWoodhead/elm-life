@@ -3,4 +3,5 @@
 #
 elm-stuff/
 node_modules/
-dist/bundle.js
+bundle.js
+elm-package.json

@@ -521,7 +521,7 @@ update msg model =
                     List.length cells
 
                 boardsize =
-                    (max minBoardSize (8 + max w h))
+                    max minBoardSize (8 + max w h)
 
                 board =
                     resizeBoard boardsize cells
@@ -604,35 +604,33 @@ update msg model =
 transformCoordinates : Model -> Mouse.Position -> ( Int, Int, Bool )
 transformCoordinates model position =
     let
-        lmb =
-            List.length model.board
+        -- x and y pixel positions relative to the board location
+        xrp =
+            toFloat (position.x - model.boardLocation.left)
 
-        bdf =
-            toFloat boardDim
+        yrp =
+            toFloat (position.y - model.boardLocation.top)
 
-        cs =
-            bdf / toFloat lmb
+        -- x and y positions scaled to 0 <= x,y < 1 range (if valid!)
+        xscale =
+            xrp / (toFloat model.boardLocation.width)
 
-        sx =
-            bdf / toFloat model.boardLocation.width
-
-        sy =
-            bdf / toFloat model.boardLocation.height
-
-        x =
-            sx * toFloat (position.x - model.boardLocation.left)
-
-        y =
-            sy * toFloat (position.y - model.boardLocation.top)
-
-        col =
-            floor (x / cs)
-
-        row =
-            floor (y / cs)
+        yscale =
+            yrp / (toFloat model.boardLocation.height)
 
         valid =
-            col >= 0 && col < lmb && row >= 0 && row < lmb && model.mode == Playing
+            xscale >= 0 && xscale < 1.0 && yscale >= 0 && yscale < 1.0 && model.mode == Playing
+
+        -- length of the board (both in x and y)
+        lmb =
+            toFloat (List.length model.board)
+
+        -- row and col of mouse position in board coordinates
+        col =
+            floor (xscale * lmb)
+
+        row =
+            floor (yscale * lmb)
     in
         ( row, col, valid )
 
@@ -961,7 +959,7 @@ loadBoard pattern =
             List.length cells
 
         boardsize =
-            (max minBoardSize (8 + max w h))
+            max minBoardSize (8 + max w h)
 
         board =
             resizeBoard boardsize cells
@@ -1048,7 +1046,7 @@ decodeRLE template =
                         -- Extract the size of the pattern from the header.
                         xy =
                             header
-                                |> Regex.split (Regex.All) (Regex.regex "[\\D]+")
+                                |> Regex.split Regex.All (Regex.regex "[\\D]+")
                                 |> List.drop 1
                                 |> List.map String.toInt
                                 |> List.map (Result.withDefault 0)
@@ -1191,10 +1189,14 @@ resizeBoard tosize board =
         -- Split into left and right halves, but try to balance where the remainder goes,
         -- if we happen to be changing by an odd number of cells (which we shouldn't!)
         ( l, r ) =
-            if rem tosize 2 == 0 then
-                ( wd // 2, wd - (wd // 2) )
-            else
-                ( wd - (wd // 2), wd // 2 )
+            let
+                wd2 =
+                    wd // 2
+            in
+                if rem tosize 2 == 0 then
+                    ( wd2, wd - wd2 )
+                else
+                    ( wd - wd2, wd2 )
 
         -- Adjust width of rows
         rewidthed =
@@ -1210,13 +1212,17 @@ resizeBoard tosize board =
             abs (tosize - h)
 
         ( t, b ) =
-            if rem tosize 2 == 0 then
-                ( ld // 2, ld - (ld // 2) )
-            else
-                ( ld - (ld // 2), ld // 2 )
+            let
+                ld2 =
+                    ld // 2
+            in
+                if rem tosize 2 == 0 then
+                    ( ld2, ld - ld2 )
+                else
+                    ( ld - ld2, ld2 )
 
         deadrow =
-            (List.repeat tosize Dead)
+            List.repeat tosize Dead
 
         result =
             if tosize > h then
@@ -1364,8 +1370,6 @@ slider msg cname minv maxv value =
         [ type_ "range"
         , name cname
         , title cname
-        , attribute "min-width" "100px"
-        , attribute "max-width" "100px"
         , Attr.min (toString minv)
         , Attr.max (toString maxv)
         , Attr.value (toString value)
@@ -1450,13 +1454,7 @@ boardView model =
             boardDim // lb
 
         boardWidth =
-            cellsize * lb
-
-        bw =
-            toString boardWidth
-
-        bd =
-            toString boardDim
+            toString (cellsize * lb)
 
         ctype =
             if (model.boardLocation.height // lb) < 16 then
@@ -1466,7 +1464,7 @@ boardView model =
 
         attrs =
             [ cursor ctype
-            , viewBox ("0 0 " ++ bw ++ " " ++ bw)
+            , viewBox ("0 0 " ++ boardWidth ++ " " ++ boardWidth)
             , id "board"
             , style
                 [ "background-color" => "lightgrey"

@@ -15914,28 +15914,20 @@ var _user$project$Main$slider = F5(
 						_0: _elm_lang$html$Html_Attributes$title(cname),
 						_1: {
 							ctor: '::',
-							_0: A2(_elm_lang$html$Html_Attributes$attribute, 'min-width', '100px'),
+							_0: _elm_lang$html$Html_Attributes$min(
+								_elm_lang$core$Basics$toString(minv)),
 							_1: {
 								ctor: '::',
-								_0: A2(_elm_lang$html$Html_Attributes$attribute, 'max-width', '100px'),
+								_0: _elm_lang$html$Html_Attributes$max(
+									_elm_lang$core$Basics$toString(maxv)),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$min(
-										_elm_lang$core$Basics$toString(minv)),
+									_0: _elm_lang$html$Html_Attributes$value(
+										_elm_lang$core$Basics$toString(value)),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$max(
-											_elm_lang$core$Basics$toString(maxv)),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$value(
-												_elm_lang$core$Basics$toString(value)),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onInput(msg),
-												_1: {ctor: '[]'}
-											}
-										}
+										_0: _elm_lang$html$Html_Events$onInput(msg),
+										_1: {ctor: '[]'}
 									}
 								}
 							}
@@ -16198,9 +16190,12 @@ var _user$project$Main$resizeBoard = F2(
 			}
 		}();
 		var wd = _elm_lang$core$Basics$abs(tosize - w);
-		var _p7 = _elm_lang$core$Native_Utils.eq(
-			A2(_elm_lang$core$Basics$rem, tosize, 2),
-			0) ? {ctor: '_Tuple2', _0: (wd / 2) | 0, _1: wd - ((wd / 2) | 0)} : {ctor: '_Tuple2', _0: wd - ((wd / 2) | 0), _1: (wd / 2) | 0};
+		var _p7 = function () {
+			var wd2 = (wd / 2) | 0;
+			return _elm_lang$core$Native_Utils.eq(
+				A2(_elm_lang$core$Basics$rem, tosize, 2),
+				0) ? {ctor: '_Tuple2', _0: wd2, _1: wd - wd2} : {ctor: '_Tuple2', _0: wd - wd2, _1: wd2};
+		}();
 		var l = _p7._0;
 		var r = _p7._1;
 		var padRow_ = function (row) {
@@ -16228,9 +16223,12 @@ var _user$project$Main$resizeBoard = F2(
 		var rewidthed = (_elm_lang$core$Native_Utils.cmp(tosize, w) > 0) ? A2(_elm_lang$core$List$map, padRow_, board) : ((_elm_lang$core$Native_Utils.cmp(tosize, w) < 0) ? A2(_elm_lang$core$List$map, trimRow_, board) : board);
 		var h = _elm_lang$core$List$length(board);
 		var ld = _elm_lang$core$Basics$abs(tosize - h);
-		var _p8 = _elm_lang$core$Native_Utils.eq(
-			A2(_elm_lang$core$Basics$rem, tosize, 2),
-			0) ? {ctor: '_Tuple2', _0: (ld / 2) | 0, _1: ld - ((ld / 2) | 0)} : {ctor: '_Tuple2', _0: ld - ((ld / 2) | 0), _1: (ld / 2) | 0};
+		var _p8 = function () {
+			var ld2 = (ld / 2) | 0;
+			return _elm_lang$core$Native_Utils.eq(
+				A2(_elm_lang$core$Basics$rem, tosize, 2),
+				0) ? {ctor: '_Tuple2', _0: ld2, _1: ld - ld2} : {ctor: '_Tuple2', _0: ld - ld2, _1: ld2};
+		}();
 		var t = _p8._0;
 		var b = _p8._1;
 		var result = (_elm_lang$core$Native_Utils.cmp(tosize, h) > 0) ? _elm_lang$core$List$concat(
@@ -16691,16 +16689,15 @@ var _user$project$Main$Import = {ctor: 'Import'};
 var _user$project$Main$Playing = {ctor: 'Playing'};
 var _user$project$Main$transformCoordinates = F2(
 	function (model, position) {
-		var bdf = _elm_lang$core$Basics$toFloat(_user$project$Main$boardDim);
-		var sx = bdf / _elm_lang$core$Basics$toFloat(model.boardLocation.width);
-		var x = sx * _elm_lang$core$Basics$toFloat(position.x - model.boardLocation.left);
-		var sy = bdf / _elm_lang$core$Basics$toFloat(model.boardLocation.height);
-		var y = sy * _elm_lang$core$Basics$toFloat(position.y - model.boardLocation.top);
-		var lmb = _elm_lang$core$List$length(model.board);
-		var cs = bdf / _elm_lang$core$Basics$toFloat(lmb);
-		var col = _elm_lang$core$Basics$floor(x / cs);
-		var row = _elm_lang$core$Basics$floor(y / cs);
-		var valid = (_elm_lang$core$Native_Utils.cmp(col, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(col, lmb) < 0) && ((_elm_lang$core$Native_Utils.cmp(row, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(row, lmb) < 0) && _elm_lang$core$Native_Utils.eq(model.mode, _user$project$Main$Playing))));
+		var lmb = _elm_lang$core$Basics$toFloat(
+			_elm_lang$core$List$length(model.board));
+		var yrp = _elm_lang$core$Basics$toFloat(position.y - model.boardLocation.top);
+		var yscale = yrp / _elm_lang$core$Basics$toFloat(model.boardLocation.height);
+		var row = _elm_lang$core$Basics$floor(yscale * lmb);
+		var xrp = _elm_lang$core$Basics$toFloat(position.x - model.boardLocation.left);
+		var xscale = xrp / _elm_lang$core$Basics$toFloat(model.boardLocation.width);
+		var valid = (_elm_lang$core$Native_Utils.cmp(xscale, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(xscale, 1.0) < 0) && ((_elm_lang$core$Native_Utils.cmp(yscale, 0) > -1) && ((_elm_lang$core$Native_Utils.cmp(yscale, 1.0) < 0) && _elm_lang$core$Native_Utils.eq(model.mode, _user$project$Main$Playing))));
+		var col = _elm_lang$core$Basics$floor(xscale * lmb);
 		return {ctor: '_Tuple3', _0: row, _1: col, _2: valid};
 	});
 var _user$project$Main$UsingTouch = {ctor: 'UsingTouch'};
@@ -18297,11 +18294,9 @@ var _user$project$Main$MouseDown = function (a) {
 	return {ctor: 'MouseDown', _0: a};
 };
 var _user$project$Main$boardView = function (model) {
-	var bd = _elm_lang$core$Basics$toString(_user$project$Main$boardDim);
 	var lb = _elm_lang$core$List$length(model.board);
 	var cellsize = (_user$project$Main$boardDim / lb) | 0;
-	var boardWidth = cellsize * lb;
-	var bw = _elm_lang$core$Basics$toString(boardWidth);
+	var boardWidth = _elm_lang$core$Basics$toString(cellsize * lb);
 	var ctype = (_elm_lang$core$Native_Utils.cmp((model.boardLocation.height / lb) | 0, 16) < 0) ? 'crosshair' : 'cell';
 	var attrs = {
 		ctor: '::',
@@ -18314,8 +18309,8 @@ var _user$project$Main$boardView = function (model) {
 					'0 0 ',
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						bw,
-						A2(_elm_lang$core$Basics_ops['++'], ' ', bw)))),
+						boardWidth,
+						A2(_elm_lang$core$Basics_ops['++'], ' ', boardWidth)))),
 			_1: {
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$id('board'),
