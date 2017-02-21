@@ -11,7 +11,7 @@ import Html.Attributes as Attr exposing (class, style, type_, checked, cols, row
 import Html.Events as Events exposing (onClick, onInput)
 import Svg exposing (Svg, rect)
 import Svg.Attributes as SAttr exposing (x, y, fill, viewBox, id, cursor)
-import Time exposing (every, second)
+import Time exposing (every, second, millisecond)
 import Json.Decode
 import Mouse
 import VirtualDom
@@ -75,6 +75,15 @@ minBoardSize =
 maxBoardSize : Int
 maxBoardSize =
     boardDim // minCellSize
+
+
+
+-- Full Speed slider value (for running with no delay)
+
+
+fullSpeed : Int
+fullSpeed =
+    20
 
 
 
@@ -229,7 +238,10 @@ subscriptions model =
     Sub.batch
         [ boardLocation BoardLocation
         , if model.running && model.speed > 0 then
-            every (second / toFloat model.speed) Tick
+            if model.speed == fullSpeed then
+                every millisecond Tick
+            else
+                every (second * toFloat (fullSpeed - model.speed) / toFloat fullSpeed) Tick
           else
             Sub.none
         , if model.inputMode == UsingMouse && model.mode == Playing then
@@ -284,12 +296,18 @@ update msg model =
                 running =
                     (not model.running) && (model.speed > 0)
 
+                -- Don't do a generation if ending free-run state.
+                newModel =
+                    if running || (model.speed == 0) then
+                        generation model
+                    else
+                        model
+
                 result =
-                    generation
-                        { model
-                            | running = running
-                            , painting = False
-                        }
+                    { newModel
+                        | running = running
+                        , painting = False
+                    }
             in
                 ( result, Cmd.none )
 
@@ -1599,7 +1617,7 @@ runningControls model =
             [ div
                 [ class "col-xs-12 text-center center-block" ]
                 [ br [] []
-                , slider Speed "Slide to change generation speed (step, slower <-> faster)" 0 20 model.speed
+                , slider Speed "Slide to change generation speed (step, slower <-> faster)" 0 fullSpeed model.speed
                 ]
             ]
         ]
