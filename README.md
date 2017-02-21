@@ -17,6 +17,21 @@ to automatically expand or have edges that wrap.
 * Detects if running on a touch device and responds accordingly.
 * Autoresizes.
 
+### Things I Learned
+
+I have put comments in the code regarding features of Elm that I learned about while
+doing this project. This includes:
+
+* Detecting when user is on a touch-based device.
+* Doing global to local mouse coordinate conversion.
+* Tracking the mouse (and basic Json decoding).
+* Defining local functions inside let blocks (and their scoping rules).
+* Generating random numbers.
+* Setting multiple variables using tuples (and the _ pattern-matching placeholder).
+* head :: tail list pattern matching.
+* SVG generation.
+* More than I wanted to about Bootstrap.css.
+
 ### Setup
 
 1. Run `npm install` to install the build process dependancies.
